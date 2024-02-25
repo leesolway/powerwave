@@ -1,18 +1,26 @@
+# Build
 FROM golang:1.22 as builder
 
 WORKDIR /app
 
-COPY . .
-
-RUN go install github.com/cosmtrek/air@latest
-
-RUN go mod tidy
-
+COPY go.mod go.sum ./
 RUN go mod download
 
-EXPOSE 8080
+COPY . .
 
+# Test
+FROM builder as tester
+
+RUN go test ./...
+
+# Serve
+FROM golang:1.22
+
+COPY --from=builder /app /app
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
+
+WORKDIR /app
+EXPOSE 8080
 
 ENTRYPOINT ["/entrypoint.sh"]
