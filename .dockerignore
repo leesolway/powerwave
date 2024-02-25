@@ -1,0 +1,6 @@
+.vscode/
+tmp/
+
+*.exe
+*.o
+.env
