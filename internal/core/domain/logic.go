@@ -7,15 +7,17 @@ import (
 	"github.com/leesolway/powerwave/internal/core/utils"
 )
 
-// Mock data
-var meters = []PowerMeter{
-	{SerialID: "1111-1111-1111", Building: "Treatment Plant A", Customer: "Aquaflow", DailyKWh: 20},
-	{SerialID: "1111-1111-2222", Building: "Treatment Plant B", Customer: "Aquaflow", DailyKWh: 30},
-	{SerialID: "1111-1111-3333", Building: "Student Halls", Customer: "Albers Facilities Management", DailyKWh: 40},
+// PowerMeterService defines the interface for operations on power meters.
+type PowerMeterService interface {
+	GetMetersByCustomerName(customerName string) ([]PowerMeter, error)
+	GetMeterReadingBySerialIDAndDate(serialID string, date time.Time) (MeterReading, error)
 }
 
+// DefaultPowerMeterService is a concrete implementation of PowerMeterService.
+type DefaultPowerMeterService struct{}
+
 // GetMetersByCustomerName retrieves meters for a given customer name.
-func GetMetersByCustomerName(customerName string) ([]PowerMeter, error) {
+func (s *DefaultPowerMeterService) GetMetersByCustomerName(customerName string) ([]PowerMeter, error) {
 	var result []PowerMeter
 	for _, meter := range meters {
 		if meter.Customer == customerName {
@@ -27,7 +29,7 @@ func GetMetersByCustomerName(customerName string) ([]PowerMeter, error) {
 }
 
 // GetDailyKWhBySerialIDAndDate calculates the kWh consumed for a given meter on a specific date.
-func GetMeterReadingBySerialIDAndDate(serialID string, date time.Time) (MeterReading, error) {
+func (s *DefaultPowerMeterService) GetMeterReadingBySerialIDAndDate(serialID string, date time.Time) (MeterReading, error) {
 	for _, meter := range meters {
 		if meter.SerialID == serialID {
 

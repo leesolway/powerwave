@@ -10,7 +10,7 @@ import (
 )
 
 // AdapterForMeterReading adapts CLI requests to domain logic for fetching meter readings by date
-func AdapterForMeterReading(cmd *cobra.Command, args []string) {
+func AdapterForMeterReading(powerMeterService domain.PowerMeterService, cmd *cobra.Command, args []string) {
 	if len(args) != 2 {
 		fmt.Println("Usage: powerwave getreading [serialID] [date]")
 		return
@@ -25,7 +25,7 @@ func AdapterForMeterReading(cmd *cobra.Command, args []string) {
 		return
 	}
 
-	reading, err := domain.GetMeterReadingBySerialIDAndDate(serialID, parsedDate)
+	reading, err := powerMeterService.GetMeterReadingBySerialIDAndDate(serialID, parsedDate)
 	if err != nil {
 		fmt.Println("Error fetching reading:", err)
 		return

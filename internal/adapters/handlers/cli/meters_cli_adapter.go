@@ -8,14 +8,14 @@ import (
 )
 
 // AdapterForMetersByCustomer adapts CLI requests to domain logic for fetching meters by customer
-func AdapterForMetersByCustomer(cmd *cobra.Command, args []string) {
+func AdapterForMetersByCustomer(powerMeterService domain.PowerMeterService, cmd *cobra.Command, args []string) {
 	if len(args) != 1 {
 		fmt.Println("Usage: powerwave getmeters [customer]")
 		return
 	}
 	customer := args[0]
 
-	meters, err := domain.GetMetersByCustomerName(customer)
+	meters, err := powerMeterService.GetMetersByCustomerName(customer)
 	if err != nil {
 		fmt.Printf("Error fetching meters: %v\n", err)
 		return
