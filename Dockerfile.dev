@@ -14,7 +14,10 @@ FROM builder as tester
 RUN go test ./...
 
 # Serve
-FROM golang:1.22
+FROM golang:1.22 as serve
+
+# use Air for live reload
+RUN go install github.com/cosmtrek/air@latest
 
 COPY --from=builder /app /app
 COPY entrypoint.sh /entrypoint.sh
