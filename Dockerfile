@@ -13,9 +13,6 @@ WORKDIR /app
 
 COPY --from=builder /app/app .
 
-# Add an alias for the app binary for easy access
-RUN echo 'alias powerwave="./app"' >> ~/.profile
-
 EXPOSE 8080
 
 CMD ["./app"]
