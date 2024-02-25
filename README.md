@@ -1,3 +1,5 @@
+[![Run Docker Tests](https://github.com/leesolway/powerwave/actions/workflows/docker-tests.yml/badge.svg?branch=main)](https://github.com/leesolway/powerwave/actions/workflows/docker-tests.yml)
+
 # Powerwave
 
 Powerwave is a tool for managing power meters. It provides both a command-line interface (CLI) and an HTTP server for interacting with power meter data.
