@@ -3,18 +3,19 @@ package main
 import (
 	"log"
 
-	clidapters "github.com/leesolway/powerwave/src/adapters/cli"
 	"github.com/spf13/cobra"
+
+	clidapters "github.com/leesolway/powerwave/internal/adapters/handlers/cli"
 )
 
 var rootCommand = &cobra.Command{
 	Use:   "powerwave",
 	Short: "Powerwave is a tool for managing power meters.",
-	Long:  `Powerwave is a comprehensive tool for managing power meters through CLI and HTTP server.`,
+	Long:  `Powerwave is a comprehensive tool for managing power meters through CLI.`,
 }
 
-// ExecuteCLI executes the root command, which in turn handles the execution of all child commands.
-func ExecuteCLI() {
+// main executes the root command, which in turn handles the execution of all child commands.
+func main() {
 	if err := rootCommand.Execute(); err != nil {
 		log.Fatal("Error executing CLI command:", err)
 	}

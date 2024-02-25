@@ -3,7 +3,7 @@ package httpadapters
 import (
 	"net/http"
 
-	"github.com/leesolway/powerwave/src/domain"
+	"github.com/leesolway/powerwave/internal/core/domain"
 
 	"github.com/gin-gonic/gin"
 )

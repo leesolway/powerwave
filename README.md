@@ -24,24 +24,34 @@ git clone https://github.com/leesolway/powerwave.git
 cd powerwave
 ```
 
-2. Build the docker image
+2. Build the CLI docker image
 
 ```bash
-docker build -t powerwave .
+ docker build --target cli -t powerwave:cli .
 ```
+
+3. Build the HTTP docker image
+
+```bash
+ docker build --target http -t powerwave:http .
+```
+
 
 ### Window ###
 
 Although all the examples use Docker the application can be built without Docker in Windows providing the go environment has been setup.
 
 ```bash
-GOOS=windows GOARCH=amd64 go build -o powerwave.exe ./src
+GOOS=windows GOARCH=amd64 go build -o powerwave.exe ./cmd/cli
+GOOS=windows GOARCH=amd64 go build -o powerwave.exe ./cmd/http
+
 ```
 
 ### Linux ###
 
 ```bash
-GOOS=linux GOARCH=amd64 go build -o powerwave ./src
+GOOS=linux GOARCH=amd64 go build -o powerwave ./cmd/cli
+GOOS=linux GOARCH=amd64 go build -o powerwave ./cmd/http
 ```
 
 ## Usage
@@ -53,12 +63,12 @@ Powerwave provides a CLI interface for managing power meters. Here are some exam
 
 ```bash
 # Get meters by customer name
-docker run --rm powerwave /app/app getmeters <customer>
+docker run --rm powerwave:cli getmeters <customer>
 ```
 
 **Example**
 ```bash
-docker run --rm powerwave /app/app getmeters "Albers Facilities Management"
+docker run --rm powerwave:cli getmeters "Albers Facilities Management"
 ```
 
 ***
@@ -67,19 +77,19 @@ docker run --rm powerwave /app/app getmeters "Albers Facilities Management"
 
 ```bash
 # Get meter reading by serial ID and date
-docker run --rm powerwave /app/app getreading <serialID> <date>
+docker run --rm powerwave:cli getreading <serialID> <date>
 ```
 
 **Example**
  ```bash
- docker run --rm powerwave /app/app getreading 1111-1111-1111 2023-01-01
+ docker run --rm powerwave:cli getreading 1111-1111-1111 2023-01-01
  ```
 
 ### HTTP Server
 Powerwave includes an HTTP server. You can run the server using the following command:
 
 ```bash
-docker run --rm -p 8080:8080 -e PORT=8080 powerwave
+docker run --rm -p 8080:8080 -e PORT=8080 powerwave:http
 ```
 
 #### Get Meters by Customer

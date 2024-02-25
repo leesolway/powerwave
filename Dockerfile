@@ -4,15 +4,29 @@ WORKDIR /app
 
 COPY . .
 
-RUN CGO_ENABLED=0 GOOS=linux go build -o app ./src
+# Build HTTP server
+RUN CGO_ENABLED=0 GOOS=linux go build -o http ./cmd/http
 
-# Run app
-FROM alpine:latest as production
+# Build CLI tool
+RUN CGO_ENABLED=0 GOOS=linux go build -o cli ./cmd/cli
 
-WORKDIR /app
+# Serve HTTP server
+FROM alpine:latest as http
 
-COPY --from=builder /app/app .
+WORKDIR /http
+
+COPY --from=builder /app/http .
 
 EXPOSE 8080
 
-CMD ["./app"]
+CMD ["./http"]
+
+
+# CLI tool
+FROM alpine:latest as cli
+
+WORKDIR /cli
+
+COPY --from=builder /app/cli .
+
+ENTRYPOINT ["./cli"]

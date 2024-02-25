@@ -3,7 +3,7 @@ package clidapters
 import (
 	"fmt"
 
-	"github.com/leesolway/powerwave/src/domain"
+	"github.com/leesolway/powerwave/internal/core/domain"
 	"github.com/spf13/cobra"
 )
 

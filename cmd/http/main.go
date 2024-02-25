@@ -1,11 +1,25 @@
 package main
 
 import (
-	httpadapters "github.com/leesolway/powerwave/src/adapters/http"
-	"github.com/leesolway/powerwave/src/middleware"
+	"fmt"
+	"log"
 
 	"github.com/gin-gonic/gin"
+
+	httpadapters "github.com/leesolway/powerwave/internal/adapters/handlers/http"
+	"github.com/leesolway/powerwave/internal/adapters/handlers/http/middleware"
+	"github.com/leesolway/powerwave/internal/core/config"
 )
+
+func main() {
+	config, err := config.LoadConfig()
+	if err != nil {
+		log.Fatal("Error loading configuration:", err)
+	}
+
+	router := SetupRouter()
+	router.Run(fmt.Sprintf(":%d", config.Port))
+}
 
 // SetupRouter creates a new gin router with all the necessary middleware and routes.
 func SetupRouter() *gin.Engine {

@@ -4,7 +4,7 @@ import (
 	"errors"
 	"time"
 
-	"github.com/leesolway/powerwave/src/utils"
+	"github.com/leesolway/powerwave/internal/core/utils"
 )
 
 // Mock data

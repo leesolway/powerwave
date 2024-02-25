@@ -4,8 +4,9 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/leesolway/powerwave/src/domain"
 	"github.com/spf13/cobra"
+
+	"github.com/leesolway/powerwave/internal/core/domain"
 )
 
 // AdapterForMeterReading adapts CLI requests to domain logic for fetching meter readings by date
