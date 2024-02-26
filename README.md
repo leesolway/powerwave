@@ -37,7 +37,7 @@ cd powerwave
 ```
 
 
-### Window ###
+### Windows ###
 
 Although all the examples use Docker the application can be built without Docker in Windows providing the go environment has been setup.
 
