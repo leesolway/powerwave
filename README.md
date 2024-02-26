@@ -151,3 +151,4 @@ Powerwave can be configured using environment variables.
 - Add support for graceful shutdown
 - Process monitoring in Docker
 - Decouple the data source for mocking and testing
+- Generate mocks with tooling such as mockgen
